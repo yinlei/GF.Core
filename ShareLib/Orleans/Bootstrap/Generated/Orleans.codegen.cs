@@ -6184,8 +6184,6 @@ namespace Orleans.Runtime
                 case -241055592:
                     switch (@methodId)
                     {
-                        case 1420312199:
-                            return "Start";
                         default:
                             throw new global::System.NotImplementedException("interfaceId=" + -241055592 + ",methodId=" + @methodId);
                     }
@@ -6193,11 +6191,6 @@ namespace Orleans.Runtime
                 default:
                     throw new global::System.NotImplementedException("interfaceId=" + @interfaceId);
             }
-        }
-
-        public global::System.Threading.Tasks.Task @Start()
-        {
-            return base.@InvokeMethodAsync<global::System.Object>(1420312199, null);
         }
     }
 
@@ -6218,8 +6211,6 @@ namespace Orleans.Runtime
                     case -241055592:
                         switch (methodId)
                         {
-                            case 1420312199:
-                                return ((global::Orleans.Runtime.IClientObserverRegistrar)@grain).@Start().@Box();
                             default:
                                 throw new global::System.NotImplementedException("interfaceId=" + -241055592 + ",methodId=" + methodId);
                         }

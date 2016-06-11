@@ -2585,11 +2585,6 @@
             Client gateway interface for forwarding client requests to silos.
             </summary>
         </member>
-        <member name="M:Orleans.Runtime.IClientObserverRegistrar.Start">
-            <summary>
-            Start this system target.
-            </summary>
-        </member>
         <member name="T:Orleans.Runtime.ILogConsumer">
             <summary>
             An interface used to consume log entries. 
