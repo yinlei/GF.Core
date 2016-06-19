@@ -31,7 +31,7 @@
             <param name="reader">The <see cref="T:Orleans.Serialization.BinaryTokenStreamReader"/></param>
             <returns>The deserialized object</returns>
         </member>
-        <member name="M:Orleans.Serialization.BondSerializer.Initialize(Orleans.Runtime.TraceLogger)">
+        <member name="M:Orleans.Serialization.BondSerializer.Initialize(Orleans.Runtime.Logger)">
             <summary>
             Initializes the external serializer
             </summary>

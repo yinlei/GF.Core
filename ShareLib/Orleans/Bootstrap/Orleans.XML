@@ -118,6 +118,295 @@
             </summary>
             <param name="task">A task to add to this AsyncPipeline.</param>
         </member>
+        <member name="M:Orleans.Runtime.LoggerExtensions.Verbose(Orleans.Runtime.Logger,System.String,System.Object[])">
+            <summary>
+            Writes a log entry at the Verbose severity level.
+            Verbose is suitable for debugging information that should usually not be logged in production.
+            Verbose is lower than Info.
+            </summary>
+            <param name="format">A standard format string, suitable for String.Format.</param>
+            <param name="args">Any arguments to the format string.</param>
+        </member>
+        <member name="M:Orleans.Runtime.LoggerExtensions.Verbose2(Orleans.Runtime.Logger,System.String,System.Object[])">
+            <summary>
+            Writes a log entry at the Verbose2 severity level.
+            Verbose2 is lower than Verbose.
+            </summary>
+            <param name="format">A standard format string, suitable for String.Format.</param>
+            <param name="args">Any arguments to the format string.</param>
+        </member>
+        <member name="M:Orleans.Runtime.LoggerExtensions.Verbose3(Orleans.Runtime.Logger,System.String,System.Object[])">
+            <summary>
+            Writes a log entry at the Verbose3 severity level.
+            Verbose3 is the lowest severity level.
+            </summary>
+            <param name="format">A standard format string, suitable for String.Format.</param>
+            <param name="args">Any arguments to the format string.</param>
+        </member>
+        <member name="M:Orleans.Runtime.LoggerExtensions.Info(Orleans.Runtime.Logger,System.String,System.Object[])">
+            <summary>
+            Writes a log entry at the Info severity level.
+            Info is suitable for information that does not indicate an error but that should usually be logged in production.
+            Info is lower than Warning.
+            </summary>
+            <param name="format">A standard format string, suitable for String.Format.</param>
+            <param name="args">Any arguments to the format string.</param>
+        </member>
+        <member name="M:Orleans.Runtime.LoggerExtensions.Verbose(Orleans.Runtime.Logger,System.Int32,System.String,System.Object[])">
+            <summary>
+            Writes a log entry at the Verbose severity level, with the specified log id code.
+            Verbose is suitable for debugging information that should usually not be logged in production.
+            Verbose is lower than Info.
+            </summary>
+            <param name="logCode">The log code associated with this message.</param>
+            <param name="format">A standard format string, suitable for String.Format.</param>
+            <param name="args">Any arguments to the format string.</param>
+        </member>
+        <member name="M:Orleans.Runtime.LoggerExtensions.Verbose2(Orleans.Runtime.Logger,System.Int32,System.String,System.Object[])">
+            <summary>
+            Writes a log entry at the Verbose2 severity level, with the specified log id code.
+            Verbose2 is lower than Verbose.
+            </summary>
+            <param name="logCode">The log code associated with this message.</param>
+            <param name="format">A standard format string, suitable for String.Format.</param>
+            <param name="args">Any arguments to the format string.</param>
+        </member>
+        <member name="M:Orleans.Runtime.LoggerExtensions.Verbose3(Orleans.Runtime.Logger,System.Int32,System.String,System.Object[])">
+            <summary>
+            Writes a log entry at the Verbose3 severity level, with the specified log id code.
+            Verbose3 is the lowest severity level.
+            </summary>
+            <param name="logCode">The log code associated with this message.</param>
+            <param name="format">A standard format string, suitable for String.Format.</param>
+            <param name="args">Any arguments to the format string.</param>
+        </member>
+        <member name="M:Orleans.Runtime.LoggerExtensions.Info(Orleans.Runtime.Logger,System.Int32,System.String,System.Object[])">
+            <summary>
+            Writes a log entry at the Info severity level, with the specified log id code.
+            Info is suitable for information that does not indicate an error but that should usually be logged in production.
+            Info is lower than Warning.
+            </summary>
+            <param name="logCode">The log code associated with this message.</param>
+            <param name="format">A standard format string, suitable for String.Format.</param>
+            <param name="args">Any arguments to the format string.</param>
+        </member>
+        <member name="M:Orleans.Runtime.LoggerExtensions.Warn(Orleans.Runtime.Logger,System.Int32,System.String,System.Object[])">
+            <summary>
+            Writes a log entry at the Warning severity level, with the specified log id code.
+            Warning is suitable for problem conditions that the system or application can handle by itself,
+            but that the administrator should be aware of.
+            Typically these are situations that are expected but that may eventually require an administrative
+            response if they recur.
+            Warning is lower than Error.
+            </summary>
+            <param name="logCode">The log code associated with this message.</param>
+            <param name="format">A standard format string, suitable for String.Format.</param>
+            <param name="args">Any arguments to the format string.</param>
+        </member>
+        <member name="M:Orleans.Runtime.LoggerExtensions.Warn(Orleans.Runtime.Logger,System.Int32,System.String,System.Exception)">
+            <summary>
+            Writes a log entry at the Warning severity level, with the specified log id code.
+            Warning is suitable for problem conditions that the system or application can handle by itself,
+            but that the administrator should be aware of.
+            Typically these are situations that are expected but that may eventually require an administrative
+            response if they recur.
+            Warning is lower than Error.
+            </summary>
+            <param name="logCode">The log code associated with this message.</param>
+            <param name="message">The warning message to log.</param>
+            <param name="exception">An exception related to the warning, if any.</param>
+        </member>
+        <member name="M:Orleans.Runtime.LoggerExtensions.Error(Orleans.Runtime.Logger,System.Int32,System.String,System.Exception)">
+            <summary>
+            Writes a log entry at the Error severity level, with the specified log id code.
+            Error is suitable for problem conditions that require immediate administrative response.
+            </summary>
+            <param name="logCode">The log code associated with this message.</param>
+            <param name="message">The error message to log.</param>
+            <param name="exception">An exception related to the error, if any.</param>
+        </member>
+        <member name="T:Orleans.Runtime.LoggerImpl">
+            <summary>
+            The LoggerImpl class is the internal <see cref="T:Orleans.Runtime.Logger"/> implementation.  It directs log messages to sinks in <see cref="T:Orleans.Runtime.LogManager"/>
+            </summary>
+        </member>
+        <member name="P:Orleans.Runtime.LoggerImpl.SeverityLevel">
+            <summary>List of log codes that won't have bulk message compaction policy applied to them</summary>
+            <summary>
+            The current severity level for this Logger.
+            Log entries will be written if their severity is (logically) equal to or greater than this level.
+            If it is not explicitly set, then a default value will be calculated based on the logger's type and name.
+            Note that changes to the global default settings will be propagated to existing loggers that are using the default severity.
+            </summary>
+        </member>
+        <member name="M:Orleans.Runtime.LoggerImpl.SetSeverityLevel(Orleans.Runtime.Severity)">
+            <summary>
+            Set a new severity level for this Logger.
+            Log entries will be written if their severity is (logically) equal to or greater than this level.
+            </summary>
+            <param name="sev">New severity level to be used for filtering log messages.</param>
+        </member>
+        <member name="M:Orleans.Runtime.LoggerImpl.#ctor(System.String,Orleans.Runtime.LoggerType)">
+            <summary>
+            Constructs a Logger with the given name and type.
+            </summary>
+            <param name="source">The name of the source of log entries for this Logger.
+            Typically this is the full name of the class that is using this Logger.</param>
+            <param name="logType">The category of Logger to create.</param>
+        </member>
+        <member name="M:Orleans.Runtime.LogFormatter.PrintDate(System.DateTime)">
+            <summary>
+            Utility function to convert a <c>DateTime</c> object into printable data format used by the Logger subsystem.
+            </summary>
+            <param name="exception">The <c>DateTime</c> value to be printed.</param>
+            <returns>Formatted string representation of the input data, in the printable format used by the Logger subsystem.</returns>
+        </member>
+        <member name="M:Orleans.Runtime.LogFormatter.PrintTime(System.DateTime)">
+            <summary>
+            Utility function to convert a <c>DateTime</c> object into printable time format used by the Logger subsystem.
+            </summary>
+            <param name="exception">The <c>DateTime</c> value to be printed.</param>
+            <returns>Formatted string representation of the input data, in the printable format used by the Logger subsystem.</returns>
+        </member>
+        <member name="M:Orleans.Runtime.LogFormatter.PrintException(System.Exception)">
+            <summary>
+            Utility function to convert an exception into printable format, including expanding and formatting any nested sub-expressions.
+            </summary>
+            <param name="exception">The exception to be printed.</param>
+            <returns>Formatted string representation of the exception, including expanding and formatting any nested sub-expressions.</returns>
+        </member>
+        <member name="T:Orleans.Runtime.LogManager">
+            <summary>
+            Manages log sinks
+            </summary>
+        </member>
+        <member name="F:Orleans.Runtime.LogManager.MAX_LOG_MESSAGE_SIZE">
+            <summary>
+            Maximum length of log messages. 
+            Log messages about this size will be truncated.
+            </summary>
+        </member>
+        <member name="P:Orleans.Runtime.LogManager.BulkMessageLimit">
+            <summary>
+            Count limit for bulk message output.
+            If the same log code is written more than <c>BulkMessageLimit</c> times in the <c>BulkMessageInterval</c> time period, 
+            then only the first <c>BulkMessageLimit</c> individual messages will be written, plus a count of how bulk messages suppressed.
+            </summary>
+        </member>
+        <member name="P:Orleans.Runtime.LogManager.BulkMessageInterval">
+            <summary>
+            Time limit for bulk message output.
+            If the same log code is written more than <c>BulkMessageLimit</c> times in the <c>BulkMessageInterval</c> time period, 
+            then only the first <c>BulkMessageLimit</c> individual messages will be written, plus a count of how bulk messages suppressed.
+            </summary>
+        </member>
+        <member name="P:Orleans.Runtime.LogManager.LogConsumers">
+            <summary>
+            The set of <see cref="T:Orleans.Runtime.ILogConsumer"/> references to write log events to. 
+            </summary>
+        </member>
+        <member name="P:Orleans.Runtime.LogManager.TelemetryConsumers">
+            <summary>
+            The set of <see cref="T:Orleans.Runtime.ITelemetryConsumer"/> references to write telemetry events to. 
+            </summary>
+        </member>
+        <member name="F:Orleans.Runtime.LogManager.ShowDate">
+            <summary>
+            Flag to suppress output of dates in log messages during unit test runs
+            </summary>
+        </member>
+        <member name="F:Orleans.Runtime.LogManager.excludedBulkLogCodes">
+            <summary>List of log codes that won't have bulk message compaction policy applied to them</summary>
+        </member>
+        <member name="P:Orleans.Runtime.LogManager.IsInitialized">
+            <summary>
+            Whether the Orleans Logger infrastructure has been previously initialized.
+            </summary>
+        </member>
+        <member name="M:Orleans.Runtime.LogManager.Initialize(Orleans.Runtime.Configuration.ITraceConfiguration,System.Boolean)">
+            <summary>
+            Initialize the Orleans Logger subsystem in this process / app domain with the specified configuration settings.
+            </summary>
+            <remarks>
+            In most cases, this call will be made automatically at the approproate poine by the Orleans runtime 
+            -- must commonly during silo initialization and/or client runtime initialization.
+            </remarks>
+            <seealso cref="M:Orleans.GrainClient.Initialize"/>
+            <seealso cref="!:Orleans.Host.Azure.Client.AzureClient.Initialize()"/>
+            <param name="config">Configuration settings to be used for initializing the Logger susbystem state.</param>
+        </member>
+        <member name="M:Orleans.Runtime.LogManager.UnInitialize">
+            <summary>
+            Uninitialize the Orleans Logger subsystem in this process / app domain.
+            </summary>
+        </member>
+        <member name="M:Orleans.Runtime.LogManager.FindLogger(System.String)">
+            <summary>
+            Find the Logger with the specified name
+            </summary>
+            <param name="loggerName">Name of the Logger to find</param>
+            <returns>Logger associated with the specified name</returns>
+        </member>
+        <member name="M:Orleans.Runtime.LogManager.GetLogger(System.String,Orleans.Runtime.LoggerType)">
+            <summary>
+            Find existing or create new Logger with the specified name
+            </summary>
+            <param name="loggerName">Name of the Logger to find</param>
+            <param name="logType">Type of Logger, if it needs to be created</param>
+            <returns>Logger associated with the specified name</returns>
+        </member>
+        <member name="M:Orleans.Runtime.LogManager.SetRuntimeLogLevel(Orleans.Runtime.Severity)">
+            <summary>
+            Set the default log level of all Runtime Loggers.
+            </summary>
+            <param name="newTraceLevel">The new log level to use</param>
+        </member>
+        <member name="M:Orleans.Runtime.LogManager.SetAppLogLevel(Orleans.Runtime.Severity)">
+            <summary>
+            Set the default log level of all Grain and Application Loggers.
+            </summary>
+            <param name="newTraceLevel">The new log level to use</param>
+        </member>
+        <member name="M:Orleans.Runtime.LogManager.SetTraceLevelOverrides(System.Collections.Generic.IList{System.Tuple{System.String,Orleans.Runtime.Severity}})">
+            <summary>
+            Set new trace level overrides for particular loggers, beyond the default log levels.
+            Any previous trace levels for particular Logger's will be discarded.
+            </summary>
+            <param name="overrides">The new set of log level overrided to use.</param>
+        </member>
+        <member name="M:Orleans.Runtime.LogManager.AddTraceLevelOverride(System.String,Orleans.Runtime.Severity)">
+            <summary>
+            Add a new trace level override for a particular logger, beyond the default log levels.
+            Any previous trace levels for other Logger's will not be changed.
+            </summary>
+            <param name="prefix">The logger names (with prefix matching) that this new log level should apply to.</param>
+            <param name="level">The new log level to use for this logger.</param>
+        </member>
+        <member name="M:Orleans.Runtime.LogManager.RemoveTraceLevelOverride(System.String)">
+            <summary>
+            Remove a new trace level override for a particular logger.
+            The log level for that logger will revert to the current global default setings.
+            Any previous trace levels for other Logger's will not be changed.
+            </summary>
+            <param name="prefix">The logger names (with prefix matching) that this new log level change should apply to.</param>
+        </member>
+        <member name="M:Orleans.Runtime.LogManager.Flush">
+            <summary>
+            Attempt to flush any pending trace log writes to disk / backing store
+            </summary>
+        </member>
+        <member name="M:Orleans.Runtime.LogManager.CreateMiniDump(Orleans.Runtime.MiniDumpType)">
+            <summary>
+            Create a mini-dump file for the current state of this process
+            </summary>
+            <param name="dumpType">Type of mini-dump to create</param>
+            <returns><c>FileInfo</c> for the location of the newly created mini-dump file</returns>
+        </member>
+        <member name="T:Orleans.Runtime.LogManager.TraceOverrideComparer">
+            <summary>
+            This custom comparer lets us sort the TraceLevelOverrides list so that the longest prefix comes first
+            </summary>
+        </member>
         <member name="T:Orleans.Runtime.TypeFormattingOptions">
             <summary>
             Options for formatting type names.
@@ -203,6 +492,12 @@
             <param name="fireAndForgetDelivery">Specifies whether the producer waits for the consumer to process the event before continuing. Setting this to false is useful for troubleshooting serialization issues.</param>
             <param name="optimizeForImmutableData">If set to true items transfered via the stream are always wrapped in Immutable for delivery.</param>>
             <param name="pubSubType">Specifies how can grains subscribe to this stream.</param>
+        </member>
+        <member name="M:Orleans.Runtime.Configuration.ConfigurationExtensions.UseStartupType``1(Orleans.Runtime.Configuration.ClusterConfiguration)">
+            <summary>
+            Configures all cluster nodes to use the specified startup class for dependency injection.
+            </summary>
+            <typeparam name="TStartup">Startup type</typeparam>
         </member>
         <member name="T:Orleans.Runtime.Configuration.LimitNames">
             <summary>
@@ -395,7 +690,7 @@
             IEnumerable of all configurations for different grain types.
             </summary>
         </member>
-        <member name="M:Orleans.Runtime.Configuration.ApplicationConfiguration.Load(System.Xml.XmlElement,Orleans.Runtime.TraceLogger)">
+        <member name="M:Orleans.Runtime.Configuration.ApplicationConfiguration.Load(System.Xml.XmlElement,Orleans.Runtime.Logger)">
             <summary>
             Load this configuratin from xml element.
             </summary>
@@ -489,7 +784,7 @@
             <param name="type">Grain type of this configuration.</param>
             <param name="ageLimit">Age limit for this type.</param>
         </member>
-        <member name="M:Orleans.Runtime.Configuration.GrainTypeConfiguration.Load(System.Xml.XmlElement,Orleans.Runtime.TraceLogger)">
+        <member name="M:Orleans.Runtime.Configuration.GrainTypeConfiguration.Load(System.Xml.XmlElement,Orleans.Runtime.Logger)">
             <summary>
             Load this configuratin from xml element.
             </summary>
@@ -1519,7 +1814,7 @@
             Marker interface for addressable endpoints, such as grains, observers, and other system-internal addressable endpoints
             </summary>
         </member>
-        <member name="M:Orleans.Runtime.AssemblyLoader.LoadAssemblies(System.Collections.Generic.Dictionary{System.String,System.IO.SearchOption},System.Collections.Generic.IEnumerable{Orleans.Runtime.AssemblyLoaderPathNameCriterion},System.Collections.Generic.IEnumerable{Orleans.Runtime.AssemblyLoaderReflectionCriterion},Orleans.Runtime.TraceLogger)">
+        <member name="M:Orleans.Runtime.AssemblyLoader.LoadAssemblies(System.Collections.Generic.Dictionary{System.String,System.IO.SearchOption},System.Collections.Generic.IEnumerable{Orleans.Runtime.AssemblyLoaderPathNameCriterion},System.Collections.Generic.IEnumerable{Orleans.Runtime.AssemblyLoaderReflectionCriterion},Orleans.Runtime.Logger)">
             <summary>
             Loads assemblies according to caller-defined criteria.
             </summary>
@@ -1567,7 +1862,7 @@
         <member name="T:Orleans.Runtime.Severity">
             <summary> Severity levels for log messages. </summary>
         </member>
-        <member name="M:Orleans.Runtime.TraceParserUtils.FormatLogMessage(Orleans.Runtime.Severity,Orleans.Runtime.TraceLogger.LoggerType,System.String,System.String,System.Net.IPEndPoint,System.Exception,System.Int32)">
+        <member name="M:Orleans.Runtime.TraceParserUtils.FormatLogMessage(Orleans.Runtime.Severity,Orleans.Runtime.LoggerType,System.String,System.String,System.Net.IPEndPoint,System.Exception,System.Int32)">
             <summary>
             The method to call during logging.
             This method should be very fast, since it is called synchronously during Orleans logging.
@@ -1585,7 +1880,7 @@
             <param name="exception">The exception to log. May be null.</param>
             <param name="eventCode">Numeric event code for this log entry. May be zero, meaning 'Unspecified'.</param>
         </member>
-        <member name="M:Orleans.Runtime.TraceParserUtils.FormatLogMessage(System.DateTime,Orleans.Runtime.Severity,Orleans.Runtime.TraceLogger.LoggerType,System.String,System.String,System.Net.IPEndPoint,System.Exception,System.Int32)">
+        <member name="M:Orleans.Runtime.TraceParserUtils.FormatLogMessage(System.DateTime,Orleans.Runtime.Severity,Orleans.Runtime.LoggerType,System.String,System.String,System.Net.IPEndPoint,System.Exception,System.Int32)">
             <summary>
             The method to call during logging to format the log info into a string ready for output.
             </summary>
@@ -1957,10 +2252,10 @@
         </member>
         <member name="M:Orleans.Runtime.IManagementGrain.SetLogLevel(Orleans.Runtime.SiloAddress[],System.String,System.Int32)">
             <summary>
-            Set the current log level for a particular TraceLogger, by name (with prefix matching).
+            Set the current log level for a particular Logger, by name (with prefix matching).
             </summary>
             <param name="hostsIds">List of silos this command is to be sent to.</param>
-            <param name="logName">Name of the TraceLogger (with prefix matching) to change.</param>
+            <param name="logName">Name of the Logger (with prefix matching) to change.</param>
             <param name="traceLevel">New log level to use.</param>
             <returns>Completion promise for this operation.</returns>
         </member>
@@ -2206,6 +2501,93 @@
             </summary>
             <param name="bufferSize">The size, in bytes, of each buffer.</param>
             <param name="maxBuffers">The maximum number of buffers to keep around, unused; by default, the number of unused buffers is unbounded.</param>
+        </member>
+        <member name="P:Orleans.Runtime.ICorePerformanceMetrics.CpuUsage">
+            <summary>
+            CPU utilization
+            </summary>
+        </member>
+        <member name="P:Orleans.Runtime.ICorePerformanceMetrics.AvailablePhysicalMemory">
+            <summary>
+            Amount of memory available to processes running on the machine
+            </summary>
+        </member>
+        <member name="P:Orleans.Runtime.ICorePerformanceMetrics.MemoryUsage">
+            <summary>
+            Current memory usage
+            </summary>
+        </member>
+        <member name="P:Orleans.Runtime.ICorePerformanceMetrics.TotalPhysicalMemory">
+            <summary>
+            Amount of physical memory on the machine
+            </summary>
+        </member>
+        <member name="P:Orleans.Runtime.ICorePerformanceMetrics.SendQueueLength">
+            <summary>
+            the current size of the send queue (number of messages waiting to be sent). 
+            Only captures remote messages to other silos (not including messages to the clients).
+            </summary>
+        </member>
+        <member name="P:Orleans.Runtime.ICorePerformanceMetrics.ReceiveQueueLength">
+            <summary>
+            the current size of the receive queue (number of messages that arrived to this silo and 
+            are waiting to be dispatched). Captures both remote and local messages from other silos 
+            as well as from the clients.
+            </summary>
+        </member>
+        <member name="P:Orleans.Runtime.ICorePerformanceMetrics.SentMessages">
+            <summary>
+            total number of remote messages sent to other silos as well as to the clients.
+            </summary>
+        </member>
+        <member name="P:Orleans.Runtime.ICorePerformanceMetrics.ReceivedMessages">
+            <summary>
+            total number of remote received messages, from other silos as well as from the clients.
+            </summary>
+        </member>
+        <member name="T:Orleans.Runtime.ISiloPerformanceMetrics">
+            <summary>
+            A small set of per-silo important key performance metrics
+            </summary>
+        </member>
+        <member name="P:Orleans.Runtime.ISiloPerformanceMetrics.RequestQueueLength">
+            <summary>
+            the current size of the receive queue (number of messages that arrived to this silo and 
+            are waiting to be dispatched). Captures both remote and local messages from other silos 
+            as well as from the clients.
+            </summary>
+        </member>
+        <member name="P:Orleans.Runtime.ISiloPerformanceMetrics.ActivationCount">
+            <summary>
+            number of activations on this silo
+            </summary>
+        </member>
+        <member name="P:Orleans.Runtime.ISiloPerformanceMetrics.RecentlyUsedActivationCount">
+            <summary>
+            Number of activations on this silo that were used in the last 10 minutes 
+            (Note: this number may currently not be accurate if different age limits 
+            are used for different grain types).
+            </summary>
+        </member>
+        <member name="P:Orleans.Runtime.ISiloPerformanceMetrics.ClientCount">
+            <summary>
+            Number of currently connected clients
+            </summary>
+        </member>
+        <member name="P:Orleans.Runtime.ISiloPerformanceMetrics.IsOverloaded">
+            <summary>
+            whether this silo is currently overloaded and is in the load shedding mode.
+            </summary>
+        </member>
+        <member name="T:Orleans.Runtime.IClientPerformanceMetrics">
+            <summary>
+            A small set of per-Orleans-client important key performance metrics.
+            </summary>
+        </member>
+        <member name="P:Orleans.Runtime.IClientPerformanceMetrics.ConnectedGatewayCount">
+            <summary>
+            number of gateways that this client is currently connected to.
+            </summary>
         </member>
         <member name="T:Orleans.Runtime.SiloRuntimeStatistics">
             <summary>
@@ -2453,6 +2835,21 @@
             <param name="key">The key for the value to be removed.</param>
             <returns>Boolean <c>True</c> if the value was previously in the RequestContext key-value bag and has now been removed, otherwise returns <c>False</c>.</returns>
         </member>
+        <member name="T:Orleans.Runtime.ICounter">
+            <summary>
+            A detailed statistic counter. Usually a low level performance statistic used in troubleshooting scenarios.
+            </summary>
+        </member>
+        <member name="P:Orleans.Runtime.ICounter.Name">
+            <summary>
+            the name of the statistic counter
+            </summary>
+        </member>
+        <member name="P:Orleans.Runtime.ICounter.IsValueDelta">
+            <summary>
+            if this the statistic counter value is delta since last value reported or an absolute value
+            </summary>
+        </member>
         <member name="M:Orleans.Runtime.CounterStatistic.GetCurrentValue">
             <summary>
             Returns the current value
@@ -2585,13 +2982,40 @@
             Client gateway interface for forwarding client requests to silos.
             </summary>
         </member>
+        <member name="T:Orleans.Runtime.LoggerType">
+            <summary>
+            The ILogConsumer distinguishes between four categories of logs:
+            <list type="table"><listheader><term>Value</term><description>Description</description></listheader>
+            <item>
+            <term>Runtime</term>
+            <description>Logs that are written by the Orleans run-time itself.
+            This category should not be used by application code.</description>
+            </item>
+            <item>
+            <term>Grain</term>
+            <description>Logs that are written by application grains.
+            This category should be used by code that runs as Orleans grains in a silo.</description>
+            </item>
+            <item>
+            <term>Application</term>
+            <description>Logs that are written by the client application.
+            This category should be used by client-side application code.</description>
+            </item>
+            <item>
+            <term>Provider</term>
+            <description>Logs that are written by providers.
+            This category should be used by provider code.</description>
+            </item>
+            </list>
+            </summary>
+        </member>
         <member name="T:Orleans.Runtime.ILogConsumer">
             <summary>
             An interface used to consume log entries. 
-            Instaces of a class implementing this should be added to <see cref="P:Orleans.Runtime.TraceLogger.LogConsumers"/> collection in order to retrieve events.
+            Instaces of a class implementing this should be added to <see cref="P:Orleans.Runtime.LogManager.LogConsumers"/> collection in order to retrieve events.
             </summary>
         </member>
-        <member name="M:Orleans.Runtime.ILogConsumer.Log(Orleans.Runtime.Severity,Orleans.Runtime.TraceLogger.LoggerType,System.String,System.String,System.Net.IPEndPoint,System.Exception,System.Int32)">
+        <member name="M:Orleans.Runtime.ILogConsumer.Log(Orleans.Runtime.Severity,Orleans.Runtime.LoggerType,System.String,System.String,System.Net.IPEndPoint,System.Exception,System.Int32)">
             <summary>
             The method to call during logging.
             This method should be very fast, since it is called synchronously during Orleans logging.
@@ -2608,7 +3032,7 @@
         <member name="T:Orleans.Runtime.IFlushableLogConsumer">
             <summary>
             An interface used to consume log entries, when a Flush function is also supported. 
-            Instances of a class implementing this should be added to <see cref="P:Orleans.Runtime.TraceLogger.LogConsumers"/> collection in order to retrieve events.
+            Instances of a class implementing this should be added to <see cref="P:Orleans.Runtime.LogManager.LogConsumers"/> collection in order to retrieve events.
             </summary>
         </member>
         <member name="M:Orleans.Runtime.IFlushableLogConsumer.Flush">
@@ -2617,7 +3041,7 @@
         <member name="T:Orleans.Runtime.ICloseableLogConsumer">
             <summary>
             An interface used to consume log entries, when a Close function is also supported. 
-            Instances of a class implementing this should be added to <see cref="P:Orleans.Runtime.TraceLogger.LogConsumers"/> collection in order to retrieve events.
+            Instances of a class implementing this should be added to <see cref="P:Orleans.Runtime.LogManager.LogConsumers"/> collection in order to retrieve events.
             </summary>
         </member>
         <member name="M:Orleans.Runtime.ICloseableLogConsumer.Close">
@@ -2793,303 +3217,7 @@
         </member>
         <member name="T:Orleans.Runtime.TraceLogger">
             <summary>
-            The TraceLogger class is a convenient wrapper around the .Net Trace class.
-            It provides more flexible configuration than the Trace class.
-            </summary>
-        </member>
-        <member name="T:Orleans.Runtime.TraceLogger.LoggerType">
-            <summary>
-            The TraceLogger class distinguishes between three categories of loggers:
-            <list type="table"><listheader><term>Value</term><description>Description</description></listheader>
-            <item>
-            <term>Runtime</term>
-            <description>Logs that are written by the Orleans run-time itself.
-            This category should not be used by application code.</description>
-            </item>
-            <item>
-            <term>Grain</term>
-            <description>Logs that are written by application grains.
-            This category should be used by code that runs as Orleans grains in a silo.</description>
-            </item>
-            <item>
-            <term>Application</term>
-            <description>Logs that are written by the client application.
-            This category should be used by client-side application code.</description>
-            </item>
-            </list>
-            </summary>
-        </member>
-        <member name="F:Orleans.Runtime.TraceLogger.MAX_LOG_MESSAGE_SIZE">
-            <summary>
-            Maximum length of log messages. 
-            Log messages about this size will be truncated.
-            </summary>
-        </member>
-        <member name="P:Orleans.Runtime.TraceLogger.BulkMessageLimit">
-            <summary>
-            Count limit for bulk message output.
-            If the same log code is written more than <c>BulkMessageLimit</c> times in the <c>BulkMessageInterval</c> time period, 
-            then only the first <c>BulkMessageLimit</c> individual messages will be written, plus a count of how bulk messages suppressed.
-            </summary>
-        </member>
-        <member name="P:Orleans.Runtime.TraceLogger.BulkMessageInterval">
-            <summary>
-            Time limit for bulk message output.
-            If the same log code is written more than <c>BulkMessageLimit</c> times in the <c>BulkMessageInterval</c> time period, 
-            then only the first <c>BulkMessageLimit</c> individual messages will be written, plus a count of how bulk messages suppressed.
-            </summary>
-        </member>
-        <member name="P:Orleans.Runtime.TraceLogger.LogConsumers">
-            <summary>
-            The set of <see cref="T:Orleans.Runtime.ILogConsumer"/> references to write log events to. 
-            </summary>
-        </member>
-        <member name="F:Orleans.Runtime.TraceLogger.ShowDate">
-            <summary>
-            Flag to suppress output of dates in log messages during unit test runs
-            </summary>
-        </member>
-        <member name="F:Orleans.Runtime.TraceLogger.excludedBulkLogCodes">
-            <summary>List of log codes that won't have bulk message compaction policy applied to them</summary>
-        </member>
-        <member name="P:Orleans.Runtime.TraceLogger.SeverityLevel">
-            <summary>
-            The current severity level for this TraceLogger.
-            Log entries will be written if their severity is (logically) equal to or greater than this level.
-            If it is not explicitly set, then a default value will be calculated based on the logger's type and name.
-            Note that changes to the global default settings will be propagated to existing loggers that are using the default severity.
-            </summary>
-        </member>
-        <member name="M:Orleans.Runtime.TraceLogger.SetSeverityLevel(Orleans.Runtime.Severity)">
-            <summary>
-            Set a new severity level for this TraceLogger.
-            Log entries will be written if their severity is (logically) equal to or greater than this level.
-            </summary>
-            <param name="sev">New severity level to be used for filtering log messages.</param>
-        </member>
-        <member name="M:Orleans.Runtime.TraceLogger.#ctor(System.String,Orleans.Runtime.TraceLogger.LoggerType)">
-            <summary>
-            Constructs a TraceLogger with the given name and type.
-            </summary>
-            <param name="source">The name of the source of log entries for this TraceLogger.
-            Typically this is the full name of the class that is using this TraceLogger.</param>
-            <param name="logType">The category of TraceLogger to create.</param>
-        </member>
-        <member name="P:Orleans.Runtime.TraceLogger.IsInitialized">
-            <summary>
-            Whether the Orleans TraceLogger infrastructure has been previously initialized.
-            </summary>
-        </member>
-        <member name="M:Orleans.Runtime.TraceLogger.Initialize(Orleans.Runtime.Configuration.ITraceConfiguration,System.Boolean)">
-            <summary>
-            Initialize the Orleans TraceLogger subsystem in this process / app domain with the specified configuration settings.
-            </summary>
-            <remarks>
-            In most cases, this call will be made automatically at the approproate poine by the Orleans runtime 
-            -- must commonly during silo initialization and/or client runtime initialization.
-            </remarks>
-            <seealso cref="M:Orleans.GrainClient.Initialize"/>
-            <seealso cref="!:Orleans.Host.Azure.Client.AzureClient.Initialize()"/>
-            <param name="config">Configuration settings to be used for initializing the TraceLogger susbystem state.</param>
-        </member>
-        <member name="M:Orleans.Runtime.TraceLogger.UnInitialize">
-            <summary>
-            Uninitialize the Orleans TraceLogger subsystem in this process / app domain.
-            </summary>
-        </member>
-        <member name="M:Orleans.Runtime.TraceLogger.FindLogger(System.String)">
-            <summary>
-            Find the TraceLogger with the specified name
-            </summary>
-            <param name="loggerName">Name of the TraceLogger to find</param>
-            <returns>TraceLogger associated with the specified name</returns>
-        </member>
-        <member name="M:Orleans.Runtime.TraceLogger.GetLogger(System.String,Orleans.Runtime.TraceLogger.LoggerType)">
-            <summary>
-            Find existing or create new TraceLogger with the specified name
-            </summary>
-            <param name="loggerName">Name of the TraceLogger to find</param>
-            <param name="logType">Type of TraceLogger, if it needs to be created</param>
-            <returns>TraceLogger associated with the specified name</returns>
-        </member>
-        <member name="M:Orleans.Runtime.TraceLogger.SetRuntimeLogLevel(Orleans.Runtime.Severity)">
-            <summary>
-            Set the default log level of all Runtime Loggers.
-            </summary>
-            <param name="newTraceLevel">The new log level to use</param>
-        </member>
-        <member name="M:Orleans.Runtime.TraceLogger.SetAppLogLevel(Orleans.Runtime.Severity)">
-            <summary>
-            Set the default log level of all Grain and Application Loggers.
-            </summary>
-            <param name="newTraceLevel">The new log level to use</param>
-        </member>
-        <member name="M:Orleans.Runtime.TraceLogger.SetTraceLevelOverrides(System.Collections.Generic.IList{System.Tuple{System.String,Orleans.Runtime.Severity}})">
-            <summary>
-            Set new trace level overrides for particular loggers, beyond the default log levels.
-            Any previous trace levels for particular TraceLogger's will be discarded.
-            </summary>
-            <param name="overrides">The new set of log level overrided to use.</param>
-        </member>
-        <member name="M:Orleans.Runtime.TraceLogger.AddTraceLevelOverride(System.String,Orleans.Runtime.Severity)">
-            <summary>
-            Add a new trace level override for a particular logger, beyond the default log levels.
-            Any previous trace levels for other TraceLogger's will not be changed.
-            </summary>
-            <param name="prefix">The logger names (with prefix matching) that this new log level should apply to.</param>
-            <param name="level">The new log level to use for this logger.</param>
-        </member>
-        <member name="M:Orleans.Runtime.TraceLogger.RemoveTraceLevelOverride(System.String)">
-            <summary>
-            Remove a new trace level override for a particular logger.
-            The log level for that logger will revert to the current global default setings.
-            Any previous trace levels for other TraceLogger's will not be changed.
-            </summary>
-            <param name="prefix">The logger names (with prefix matching) that this new log level change should apply to.</param>
-        </member>
-        <member name="M:Orleans.Runtime.TraceLogger.Verbose(System.String,System.Object[])">
-            <summary>
-            Writes a log entry at the Verbose severity level.
-            Verbose is suitable for debugging information that should usually not be logged in production.
-            Verbose is lower than Info.
-            </summary>
-            <param name="format">A standard format string, suitable for String.Format.</param>
-            <param name="args">Any arguments to the format string.</param>
-        </member>
-        <member name="M:Orleans.Runtime.TraceLogger.Verbose2(System.String,System.Object[])">
-            <summary>
-            Writes a log entry at the Verbose2 severity level.
-            Verbose2 is lower than Verbose.
-            </summary>
-            <param name="format">A standard format string, suitable for String.Format.</param>
-            <param name="args">Any arguments to the format string.</param>
-        </member>
-        <member name="M:Orleans.Runtime.TraceLogger.Verbose3(System.String,System.Object[])">
-            <summary>
-            Writes a log entry at the Verbose3 severity level.
-            Verbose3 is the lowest severity level.
-            </summary>
-            <param name="format">A standard format string, suitable for String.Format.</param>
-            <param name="args">Any arguments to the format string.</param>
-        </member>
-        <member name="M:Orleans.Runtime.TraceLogger.Info(System.String,System.Object[])">
-            <summary>
-            Writes a log entry at the Info severity level.
-            Info is suitable for information that does not indicate an error but that should usually be logged in production.
-            Info is lower than Warning.
-            </summary>
-            <param name="format">A standard format string, suitable for String.Format.</param>
-            <param name="args">Any arguments to the format string.</param>
-        </member>
-        <member name="M:Orleans.Runtime.TraceLogger.Verbose(System.Int32,System.String,System.Object[])">
-            <summary>
-            Writes a log entry at the Verbose severity level, with the specified log id code.
-            Verbose is suitable for debugging information that should usually not be logged in production.
-            Verbose is lower than Info.
-            </summary>
-            <param name="logCode">The log code associated with this message.</param>
-            <param name="format">A standard format string, suitable for String.Format.</param>
-            <param name="args">Any arguments to the format string.</param>
-        </member>
-        <member name="M:Orleans.Runtime.TraceLogger.Verbose2(System.Int32,System.String,System.Object[])">
-            <summary>
-            Writes a log entry at the Verbose2 severity level, with the specified log id code.
-            Verbose2 is lower than Verbose.
-            </summary>
-            <param name="logCode">The log code associated with this message.</param>
-            <param name="format">A standard format string, suitable for String.Format.</param>
-            <param name="args">Any arguments to the format string.</param>
-        </member>
-        <member name="M:Orleans.Runtime.TraceLogger.Verbose3(System.Int32,System.String,System.Object[])">
-            <summary>
-            Writes a log entry at the Verbose3 severity level, with the specified log id code.
-            Verbose3 is the lowest severity level.
-            </summary>
-            <param name="logCode">The log code associated with this message.</param>
-            <param name="format">A standard format string, suitable for String.Format.</param>
-            <param name="args">Any arguments to the format string.</param>
-        </member>
-        <member name="M:Orleans.Runtime.TraceLogger.Info(System.Int32,System.String,System.Object[])">
-            <summary>
-            Writes a log entry at the Info severity level, with the specified log id code.
-            Info is suitable for information that does not indicate an error but that should usually be logged in production.
-            Info is lower than Warning.
-            </summary>
-            <param name="logCode">The log code associated with this message.</param>
-            <param name="format">A standard format string, suitable for String.Format.</param>
-            <param name="args">Any arguments to the format string.</param>
-        </member>
-        <member name="M:Orleans.Runtime.TraceLogger.Warn(System.Int32,System.String,System.Object[])">
-            <summary>
-            Writes a log entry at the Warning severity level, with the specified log id code.
-            Warning is suitable for problem conditions that the system or application can handle by itself,
-            but that the administrator should be aware of.
-            Typically these are situations that are expected but that may eventually require an administrative
-            response if they recur.
-            Warning is lower than Error.
-            </summary>
-            <param name="logCode">The log code associated with this message.</param>
-            <param name="format">A standard format string, suitable for String.Format.</param>
-            <param name="args">Any arguments to the format string.</param>
-        </member>
-        <member name="M:Orleans.Runtime.TraceLogger.Warn(System.Int32,System.String,System.Exception)">
-            <summary>
-            Writes a log entry at the Warning severity level, with the specified log id code.
-            Warning is suitable for problem conditions that the system or application can handle by itself,
-            but that the administrator should be aware of.
-            Typically these are situations that are expected but that may eventually require an administrative
-            response if they recur.
-            Warning is lower than Error.
-            </summary>
-            <param name="logCode">The log code associated with this message.</param>
-            <param name="message">The warning message to log.</param>
-            <param name="exception">An exception related to the warning, if any.</param>
-        </member>
-        <member name="M:Orleans.Runtime.TraceLogger.Error(System.Int32,System.String,System.Exception)">
-            <summary>
-            Writes a log entry at the Error severity level, with the specified log id code.
-            Error is suitable for problem conditions that require immediate administrative response.
-            </summary>
-            <param name="logCode">The log code associated with this message.</param>
-            <param name="message">The error message to log.</param>
-            <param name="exception">An exception related to the error, if any.</param>
-        </member>
-        <member name="M:Orleans.Runtime.TraceLogger.PrintDate(System.DateTime)">
-            <summary>
-            Utility function to convert a <c>DateTime</c> object into printable data format used by the TraceLogger subsystem.
-            </summary>
-            <param name="exception">The <c>DateTime</c> value to be printed.</param>
-            <returns>Formatted string representation of the input data, in the printable format used by the TraceLogger subsystem.</returns>
-        </member>
-        <member name="M:Orleans.Runtime.TraceLogger.PrintTime(System.DateTime)">
-            <summary>
-            Utility function to convert a <c>DateTime</c> object into printable time format used by the TraceLogger subsystem.
-            </summary>
-            <param name="exception">The <c>DateTime</c> value to be printed.</param>
-            <returns>Formatted string representation of the input data, in the printable format used by the TraceLogger subsystem.</returns>
-        </member>
-        <member name="M:Orleans.Runtime.TraceLogger.PrintException(System.Exception)">
-            <summary>
-            Utility function to convert an exception into printable format, including expanding and formatting any nested sub-expressions.
-            </summary>
-            <param name="exception">The exception to be printed.</param>
-            <returns>Formatted string representation of the exception, including expanding and formatting any nested sub-expressions.</returns>
-        </member>
-        <member name="M:Orleans.Runtime.TraceLogger.Flush">
-            <summary>
-            Attempt to flush any pending trace log writes to disk / backing store
-            </summary>
-        </member>
-        <member name="M:Orleans.Runtime.TraceLogger.CreateMiniDump(Orleans.Runtime.MiniDumpType)">
-            <summary>
-            Create a mini-dump file for the current state of this process
-            </summary>
-            <param name="dumpType">Type of mini-dump to create</param>
-            <returns><c>FileInfo</c> for the location of the newly created mini-dump file</returns>
-        </member>
-        <member name="T:Orleans.Runtime.TraceLogger.TraceOverrideComparer">
-            <summary>
-            This custom comparer lets us sort the TraceLevelOverrides list so that the longest prefix comes first
+            Support backwards compatability with old TraceManager for logger managament api
             </summary>
         </member>
         <member name="M:Orleans.Runtime.LRU`2.#ctor(System.Int32,System.TimeSpan,Orleans.Runtime.LRU{`0,`1}.FetchValueDelegate)">
@@ -3131,6 +3259,23 @@
         <member name="P:Orleans.Runtime.Logger.SeverityLevel">
             <summary> Current SeverityLevel set for this logger. </summary>
         </member>
+        <member name="M:Orleans.Runtime.Logger.GetLogger(System.String)">
+            <summary>
+            Find existing or create new Logger with the specified name
+            </summary>
+            <param name="loggerName">Name of the Logger to find or create</param>
+            <returns>Logger associated with the specified name</returns>
+        </member>
+        <member name="M:Orleans.Runtime.Logger.Log(System.Int32,Orleans.Runtime.Severity,System.String,System.Object[],System.Exception)">
+            <summary>
+            Log message
+            </summary>
+            <param name="errorCode"></param>
+            <param name="sev"></param>
+            <param name="format"></param>
+            <param name="args"></param>
+            <param name="exception"></param>
+        </member>
         <member name="P:Orleans.Runtime.Logger.IsWarning">
             <summary> Whether the current SeverityLevel would output <c>Warning</c> messages for this logger. </summary>
         </member>
@@ -3145,39 +3290,6 @@
         </member>
         <member name="P:Orleans.Runtime.Logger.IsVerbose3">
             <summary> Whether the current SeverityLevel would output <c>Verbose3</c> messages for this logger. </summary>
-        </member>
-        <member name="M:Orleans.Runtime.Logger.Verbose(System.String,System.Object[])">
-            <summary> Output the specified message at <c>Verbose</c> log level. </summary>
-        </member>
-        <member name="M:Orleans.Runtime.Logger.Verbose2(System.String,System.Object[])">
-            <summary> Output the specified message at <c>Verbose2</c> log level. </summary>
-        </member>
-        <member name="M:Orleans.Runtime.Logger.Verbose3(System.String,System.Object[])">
-            <summary> Output the specified message at <c>Verbose3</c> log level. </summary>
-        </member>
-        <member name="M:Orleans.Runtime.Logger.Info(System.String,System.Object[])">
-            <summary> Output the specified message at <c>Info</c> log level. </summary>
-        </member>
-        <member name="M:Orleans.Runtime.Logger.Error(System.Int32,System.String,System.Exception)">
-            <summary> Output the specified message and Exception at <c>Error</c> log level with the specified log id value. </summary>
-        </member>
-        <member name="M:Orleans.Runtime.Logger.Warn(System.Int32,System.String,System.Object[])">
-            <summary> Output the specified message at <c>Warning</c> log level with the specified log id value. </summary>
-        </member>
-        <member name="M:Orleans.Runtime.Logger.Warn(System.Int32,System.String,System.Exception)">
-            <summary> Output the specified message and Exception at <c>Warning</c> log level with the specified log id value. </summary>
-        </member>
-        <member name="M:Orleans.Runtime.Logger.Info(System.Int32,System.String,System.Object[])">
-            <summary> Output the specified message at <c>Info</c> log level with the specified log id value. </summary>
-        </member>
-        <member name="M:Orleans.Runtime.Logger.Verbose(System.Int32,System.String,System.Object[])">
-            <summary> Output the specified message at <c>Verbose</c> log level with the specified log id value. </summary>
-        </member>
-        <member name="M:Orleans.Runtime.Logger.Verbose2(System.Int32,System.String,System.Object[])">
-            <summary> Output the specified message at <c>Verbose2</c> log level with the specified log id value. </summary>
-        </member>
-        <member name="M:Orleans.Runtime.Logger.Verbose3(System.Int32,System.String,System.Object[])">
-            <summary> Output the specified message at <c>Verbose3</c> log level with the specified log id value. </summary>
         </member>
         <member name="T:Orleans.Runtime.SiloAddress">
             <summary>
@@ -3705,6 +3817,13 @@
             <returns>GrainReference that is usable as the target type</returns>
             <exception cref="T:System.InvalidCastException">if the grain cannot be cast to the target type</exception>
         </member>
+        <member name="M:Orleans.Runtime.GrainReference.SetGrainCancellationTokensTarget(System.Object[],Orleans.Runtime.GrainReference)">
+            <summary>
+            Sets target grain to the found instances of type GrainCancellationToken
+            </summary>
+            <param name="arguments"> Grain method arguments list</param>
+            <param name="target"> Target grain reference</param>
+        </member>
         <member name="M:Orleans.Runtime.GrainReference.SerializeGrainReference(System.Object,Orleans.Serialization.BinaryTokenStreamWriter,System.Type)">
             <summary> Serializer function for grain reference.</summary>
             <seealso cref="T:Orleans.Serialization.SerializationManager"/>
@@ -3925,6 +4044,31 @@
             4) LockReleaser does NOT have to implement the Finalizer function. If users forget to Dispose the LockReleaser (analagous to forgetting to release a mutex)
             the AsyncLock wil remain locked, which may potentialy cause deadlock. This is OK, since these are the exact regular mutex semantics - if one forgets to unlcok the mutex, it stays locked. 
         </member>
+        <member name="T:Orleans.Async.GrainCancellationToken">
+            <summary>
+            Grain cancellation token
+            </summary>
+        </member>
+        <member name="F:Orleans.Async.GrainCancellationToken._targetGrainReferences">
+            <summary>
+            References to remote grains to which this token was passed.
+            </summary>
+        </member>
+        <member name="M:Orleans.Async.GrainCancellationToken.#ctor(System.Guid,System.Boolean)">
+            <summary>
+            Initializes the <see cref="T:Orleans.Async.GrainCancellationToken"/>.
+            </summary>
+        </member>
+        <member name="P:Orleans.Async.GrainCancellationToken.Id">
+            <summary>
+            Unique id of concrete token
+            </summary>
+        </member>
+        <member name="P:Orleans.Async.GrainCancellationToken.CancellationToken">
+            <summary>
+            Underlying cancellation token
+            </summary>
+        </member>
         <member name="T:Orleans.Async.TaskUtility">
             <summary>
             Extension methods for <see cref="T:System.Threading.Tasks.Task"/>.
@@ -3942,6 +4086,81 @@
             Returns a completed task.
             </summary>
             <returns>A completed task.</returns>
+        </member>
+        <member name="T:Orleans.Async.GrainCancellationTokenSource">
+            <summary>
+            Distributed version of the CancellationTokenSource
+            </summary>
+        </member>
+        <member name="M:Orleans.Async.GrainCancellationTokenSource.#ctor">
+            <summary>
+            Initializes the <see cref="T:Orleans.Async.GrainCancellationTokenSource"/>.
+            </summary>
+        </member>
+        <member name="P:Orleans.Async.GrainCancellationTokenSource.Token">
+            <summary>
+            Gets the <see cref="T:Orleans.Async.GrainCancellationTokenSource">CancellationToken</see>
+            associated with this <see cref="T:Orleans.Async.GrainCancellationTokenSource"/>.
+            </summary>
+            <value>The <see cref="T:Orleans.Async.GrainCancellationToken">CancellationToken</see>
+            associated with this <see cref="T:Orleans.Async.GrainCancellationToken"/>.</value>
+        </member>
+        <member name="P:Orleans.Async.GrainCancellationTokenSource.IsCancellationRequested">
+            <summary>
+            Gets whether cancellation has been requested for this <see
+            cref="T:Orleans.Async.GrainCancellationTokenSource">CancellationTokenSource</see>.
+            </summary>
+            <value>Whether cancellation has been requested for this <see
+            cref="T:Orleans.Async.GrainCancellationTokenSource">CancellationTokenSource</see>.</value>
+            <remarks>
+            <para>
+            This property indicates whether cancellation has been requested for this token source, such as
+            due to a call to its
+            <see cref="M:Orleans.Async.GrainCancellationTokenSource.Cancel">Cancel</see> method.
+            </para>
+            <para>
+            If this property returns true, it only guarantees that cancellation has been requested. It does not
+            guarantee that every handler registered with the corresponding token has finished executing, nor
+            that cancellation requests have finished propagating to all registered handlers and remote targets. Additional
+            synchronization may be required, particularly in situations where related objects are being
+            canceled concurrently.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:Orleans.Async.GrainCancellationTokenSource.Cancel">
+            <summary>
+            Communicates a request for cancellation.
+            </summary>
+            <remarks>
+            <para>
+            The associated <see cref="T:Orleans.Async.GrainCancellationToken" /> will be
+            notified of the cancellation and will transition to a state where 
+            <see cref="P:Orleans.Async.GrainCancellationToken.CancellationToken">IsCancellationRequested</see> returns true. 
+            Any callbacks or cancelable operations
+            registered with the <see cref="T:Orleans.Threading.CancellationToken"/>  will be executed.
+            </para>
+            <para>
+            Cancelable operations and callbacks registered with the token should not throw exceptions.
+            However, this overload of Cancel will aggregate any exceptions thrown into a <see cref="T:System.AggregateException"/>,
+            such that one callback throwing an exception will not prevent other registered callbacks from being executed.
+            </para>
+            <para>
+            The <see cref="T:System.Threading.ExecutionContext"/> that was captured when each callback was registered
+            will be reestablished when the callback is invoked.
+            </para>
+            </remarks>
+            <exception cref="T:System.AggregateException">An aggregate exception containing all the exceptions thrown
+            by the registered callbacks on the associated <see cref="T:Orleans.Async.GrainCancellationToken"/>.</exception>
+            <exception cref="T:System.ObjectDisposedException">This <see
+            cref="T:Orleans.Async.GrainCancellationTokenSource"/> has been disposed.</exception> 
+        </member>
+        <member name="M:Orleans.Async.GrainCancellationTokenSource.Dispose">
+            <summary>
+            Releases the resources used by this <see cref="T:Orleans.Async.GrainCancellationTokenSource" />.
+            </summary>
+            <remarks>
+            This method is not thread-safe for any other concurrent calls.
+            </remarks>
         </member>
         <member name="T:Orleans.PublicOrleansTaskExtensions">
             <summary>
@@ -4634,7 +4853,7 @@
             <param name="loggerName">Name of the logger being requested.</param>
             <param name="logType">Type of the logger being requested.</param>
             <returns>Object reference to the requested logger.</returns>
-            <seealso cref="T:Orleans.Runtime.TraceLogger.LoggerType"/>
+            <seealso cref="T:Orleans.Runtime.LoggerType"/>
         </member>
         <member name="P:Orleans.Providers.IProviderRuntime.ServiceId">
             <summary>
@@ -4896,7 +5115,7 @@
             automatically incorporated in the Serialization Manager.
             </summary>
         </member>
-        <member name="M:Orleans.Serialization.IExternalSerializer.Initialize(Orleans.Runtime.TraceLogger)">
+        <member name="M:Orleans.Serialization.IExternalSerializer.Initialize(Orleans.Runtime.Logger)">
             <summary>
             Initializes the external serializer. Called once when the serialization manager creates 
             an instance of this type
@@ -4938,7 +5157,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Orleans.Serialization.OrleansJsonSerializer.Initialize(Orleans.Runtime.TraceLogger)">
+        <member name="M:Orleans.Serialization.OrleansJsonSerializer.Initialize(Orleans.Runtime.Logger)">
             <summary>
             Initializes the serializer
             </summary>
@@ -5649,12 +5868,12 @@
             Interface that provides Orleans gateways information.
             </summary>
         </member>
-        <member name="M:Orleans.Messaging.IGatewayListProvider.InitializeGatewayListProvider(Orleans.Runtime.Configuration.ClientConfiguration,Orleans.Runtime.TraceLogger)">
+        <member name="M:Orleans.Messaging.IGatewayListProvider.InitializeGatewayListProvider(Orleans.Runtime.Configuration.ClientConfiguration,Orleans.Runtime.Logger)">
             <summary>
             Initializes the provider, will be called before all other methods
             </summary>
             <param name="clientConfiguration">the given client configuration</param>
-            <param name="traceLogger">the logger to be used by the provider</param>
+            <param name="logger">the logger to be used by the provider</param>
         </member>
         <member name="M:Orleans.Messaging.IGatewayListProvider.GetGateways">
             <summary>
@@ -5730,8 +5949,8 @@
             </summary>
         </member>
         <member name="P:Orleans.Storage.IStorageProvider.Log">
-            <summary>TraceLogger used by this storage provider instance.</summary>
-            <returns>Reference to the TraceLogger object used by this provider.</returns>
+            <summary>Logger used by this storage provider instance.</summary>
+            <returns>Reference to the Logger object used by this provider.</returns>
             <seealso cref="T:Orleans.Runtime.Logger"/>
         </member>
         <member name="M:Orleans.Storage.IStorageProvider.ReadStateAsync(System.String,Orleans.Runtime.GrainReference,Orleans.IGrainState)">
@@ -6332,7 +6551,7 @@
             <summary>
             Create a cache for a given queue id
             </summary>
-            <param name="messages"></param>
+            <param name="queueId"></param>
         </member>
         <member name="T:Orleans.Streams.IQueueAdapterReceiver">
             <summary>
@@ -6561,7 +6780,6 @@
             <summary>
             Creates a quere receiver for the specificed queueId
             </summary>
-            <param name="requesterId">Id of requester, for monitoring/logging purposes</param>
             <param name="queueId"></param>
             <returns></returns>
         </member>
@@ -7116,13 +7334,13 @@
             Interface for Membership Table.
             </summary>
         </member>
-        <member name="M:Orleans.IMembershipTable.InitializeMembershipTable(Orleans.Runtime.Configuration.GlobalConfiguration,System.Boolean,Orleans.Runtime.TraceLogger)">
+        <member name="M:Orleans.IMembershipTable.InitializeMembershipTable(Orleans.Runtime.Configuration.GlobalConfiguration,System.Boolean,Orleans.Runtime.Logger)">
             <summary>
             Initializes the membership table, will be called before all other methods
             </summary>
             <param name="globalConfiguration">the give global configuration</param>
             <param name="tryInitTableVersion">whether an attempt will be made to init the underlying table</param>
-            <param name="traceLogger">the logger used by the membership table</param>
+            <param name="logger">the logger used by the membership table</param>
         </member>
         <member name="M:Orleans.IMembershipTable.DeleteMembershipTableEntries(System.String)">
             <summary>
@@ -7213,6 +7431,47 @@
             The etag of this TableVersion, used for validation of table update operations.
             </summary>
         </member>
+        <member name="P:Orleans.MembershipEntry.SiloAddress">
+            <summary>
+            The silo unique identity (ip:port:epoch). Used mainly by the Membership Protocol.
+            </summary>
+        </member>
+        <member name="P:Orleans.MembershipEntry.Status">
+            <summary>
+            The silo status. Managed by the Membership Protocol.
+            </summary>
+        </member>
+        <member name="P:Orleans.MembershipEntry.SuspectTimes">
+            <summary>
+            The list of silos that suspect this silo. Managed by the Membership Protocol.
+            </summary>
+        </member>
+        <member name="P:Orleans.MembershipEntry.ProxyPort">
+            <summary>
+            Silo to clients TCP port. Set on silo startup.
+            </summary>    
+        </member>
+        <member name="P:Orleans.MembershipEntry.HostName">
+            <summary>
+            The DNS host name of the silo. Equals to Dns.GetHostName(). Set on silo startup.
+            </summary>
+        </member>
+        <member name="P:Orleans.MembershipEntry.SiloName">
+            <summary>
+            the name of the specific silo instance within a cluster. 
+            If running in Azure - the name of this role instance. Set on silo startup.
+            </summary>
+        </member>
+        <member name="P:Orleans.MembershipEntry.StartTime">
+            <summary>
+            Time this silo was started. For diagnostics and troubleshooting only.
+            </summary>
+        </member>
+        <member name="P:Orleans.MembershipEntry.IAmAliveTime">
+            <summary>
+            the last time this silo reported that it is alive. For diagnostics and troubleshooting only.
+            </summary>
+        </member>
         <member name="T:Orleans.IReminderTable">
             <summary>
             Interface for multiple implementations of the underlying storage for reminder data:
@@ -7240,6 +7499,28 @@
         <member name="T:Orleans.IReminderTableGrain">
             <summary>
             Reminder table interface for grain based implementation.
+            </summary>
+        </member>
+        <member name="P:Orleans.ReminderEntry.GrainRef">
+            <summary>
+            The grain reference of the grain that created the reminder. Forms the reminder
+            primary key together with <see cref="P:Orleans.ReminderEntry.ReminderName"/>.
+            </summary>
+        </member>
+        <member name="P:Orleans.ReminderEntry.ReminderName">
+            <summary>
+            The name of the reminder. Forms the reminder primary key together with 
+            <see cref="P:Orleans.ReminderEntry.GrainRef"/>.
+            </summary>
+        </member>
+        <member name="P:Orleans.ReminderEntry.StartAt">
+            <summary>
+            the time when the reminder was supposed to tick in the first time
+            </summary>
+        </member>
+        <member name="P:Orleans.ReminderEntry.Period">
+            <summary>
+            the time period for the reminder
             </summary>
         </member>
         <member name="M:Orleans.IReminderService.RegisterOrUpdateReminder(Orleans.Runtime.GrainReference,System.String,System.TimeSpan,System.TimeSpan)">

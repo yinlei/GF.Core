@@ -862,12 +862,12 @@
             <summary> Name of the table this instance is managing. </summary>
         </member>
         <member name="P:Orleans.AzureUtils.AzureTableDataManager`1.Logger">
-            <summary> TraceLogger for this table manager instance. </summary>
+            <summary> Logger for this table manager instance. </summary>
         </member>
         <member name="P:Orleans.AzureUtils.AzureTableDataManager`1.ConnectionString">
             <summary> Connection string for the Azure storage account used to host this table. </summary>
         </member>
-        <member name="M:Orleans.AzureUtils.AzureTableDataManager`1.#ctor(System.String,System.String,Orleans.Runtime.TraceLogger)">
+        <member name="M:Orleans.AzureUtils.AzureTableDataManager`1.#ctor(System.String,System.String,Orleans.Runtime.Logger)">
             <summary>
             Constructor
             </summary>

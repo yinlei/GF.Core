@@ -41,13 +41,13 @@
             The root connection string. for eg. "192.168.1.1,192.168.1.2"
             </summary>
         </member>
-        <member name="M:Orleans.Runtime.Host.ZooKeeperBasedMembershipTable.InitializeMembershipTable(Orleans.Runtime.Configuration.GlobalConfiguration,System.Boolean,Orleans.Runtime.TraceLogger)">
+        <member name="M:Orleans.Runtime.Host.ZooKeeperBasedMembershipTable.InitializeMembershipTable(Orleans.Runtime.Configuration.GlobalConfiguration,System.Boolean,Orleans.Runtime.Logger)">
             <summary>
             Initializes the ZooKeeper based membership table.
             </summary>
             <param name="config">The configuration for this instance.</param>
             <param name="tryInitPath">if set to true, we'll try to create a node named "/DeploymentId"</param>
-            <param name="traceLogger">The logger to be used by this instance</param>
+            <param name="logger">The logger to be used by this instance</param>
             <returns></returns>
         </member>
         <member name="M:Orleans.Runtime.Host.ZooKeeperBasedMembershipTable.GetRow(org.apache.zookeeper.ZooKeeper,Orleans.Runtime.SiloAddress)">

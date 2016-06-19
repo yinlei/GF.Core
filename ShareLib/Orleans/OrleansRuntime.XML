@@ -4,6 +4,22 @@
         <name>OrleansRuntime</name>
     </assembly>
     <members>
+        <member name="T:Orleans.Async.CancellationSourcesExtension">
+            <summary>
+            Contains list of cancellation token source corresponding to the tokens
+            passed to the related grain activation.
+            </summary>
+        </member>
+        <member name="M:Orleans.Async.CancellationSourcesExtension.RegisterCancellationTokens(Orleans.Runtime.IAddressable,Orleans.CodeGeneration.InvokeMethodRequest,Orleans.Runtime.Logger)">
+            <summary>
+            Adds CancellationToken to the grain extension
+            so that it can be cancelled through remote call to the CancellationSourcesExtension.
+            </summary>
+            <param name="target"></param>
+            <param name="request"></param>
+            <param name="i">Index of the GrainCancellationToken in the request.Arguments array</param>
+            <param name="logger"></param>
+        </member>
         <member name="F:Orleans.Runtime.ActivationState.Create">
             <summary>
             Activation is being created
@@ -951,12 +967,12 @@
             </summary>
             <param name="message"></param>
         </member>
-        <member name="M:Orleans.Runtime.ActivationData.CheckOverloaded(Orleans.Runtime.TraceLogger)">
+        <member name="M:Orleans.Runtime.ActivationData.CheckOverloaded(Orleans.Runtime.Logger)">
             <summary>
             Check whether this activation is overloaded. 
             Returns LimitExceededException if overloaded, otherwise <c>null</c>c>
             </summary>
-            <param name="log">TraceLogger to use for reporting any overflow condition</param>
+            <param name="log">Logger to use for reporting any overflow condition</param>
             <returns>Returns LimitExceededException if overloaded, otherwise <c>null</c>c></returns>
         </member>
         <member name="M:Orleans.Runtime.ActivationData.GetIdleness(System.DateTime)">

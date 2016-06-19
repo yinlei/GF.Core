@@ -9,7 +9,7 @@
             An implementation of IExternalSerializer for usage with Protobuf types.
             </summary>
         </member>
-        <member name="M:Orleans.Serialization.ProtobufSerializer.Initialize(Orleans.Runtime.TraceLogger)">
+        <member name="M:Orleans.Serialization.ProtobufSerializer.Initialize(Orleans.Runtime.Logger)">
             <summary>
             Initializes the external serializer
             </summary>
