@@ -43,9 +43,9 @@ public class EntityRpcSessionSuperSocketC : IRpcSession
     }
 
     //---------------------------------------------------------------------
-    public void connect(string ip, int port)
+    public void connect(string ipv4, string ipv6, int port)
     {
-        if (mSocket != null) mSocket.connect(ip, port);
+        if (mSocket != null) mSocket.connect(ipv4, ipv6, port);
     }
 
     //---------------------------------------------------------------------

@@ -45,6 +45,7 @@ public class TcpClientSession3 : IDisposable
     Queue<byte[]> mQueSending = new Queue<byte[]>();
     int mSendLength = 0;
     volatile bool mConnected;
+    bool mIsIpV6;
 
     //-------------------------------------------------------------------------
     public bool IsConnected { get { return (mSocket == null || mDisposed) ? false : mConnected; } }
@@ -54,9 +55,10 @@ public class TcpClientSession3 : IDisposable
     public OnSocketError Error { get; set; }
 
     //-------------------------------------------------------------------------
-    public TcpClientSession3(EndPoint remote_endpoint)
+    public TcpClientSession3(EndPoint remote_endpoint, bool is_ipV6)
     {
         mRemoteEndPoint = remote_endpoint;
+        mIsIpV6 = is_ipV6;
 
         m_KeepAliveOptionValues = new byte[sizeof(uint) * 3];
         m_KeepAliveOptionOutValues = new byte[m_KeepAliveOptionValues.Length];
@@ -173,7 +175,7 @@ public class TcpClientSession3 : IDisposable
             if (mDisposed) return;
 
             mSendLength = 0;
-            mSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            mSocket = new Socket(mIsIpV6 ? AddressFamily.InterNetworkV6 : AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
             mSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, true);
             mSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.DontLinger, true);

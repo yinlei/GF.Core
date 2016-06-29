@@ -28,11 +28,19 @@ namespace GF.Server
 
             var settings = EsEngine.Instance.Settings;
 
-            EbLog.Note("ListenIp=" + settings.ListenIp + " ListenPort=" + settings.ListenPort);
+            EbLog.Note("ListenIp=" + settings.ListenIpV4 + " ListenPort=" + settings.ListenPort);
 
-            ServerConfig server_config = new ServerConfig();
-            server_config.Ip = settings.ListenIp;
-            server_config.Port = settings.ListenPort;
+            ListenerConfig listener_config_ipV4 = new ListenerConfig();
+            listener_config_ipV4.Ip = settings.ListenIpV4;
+            listener_config_ipV4.Port = settings.ListenPort;
+            ListenerConfig listener_config_ipV6 = new ListenerConfig();
+            listener_config_ipV6.Ip = settings.ListenIpV6;
+            listener_config_ipV6.Port = settings.ListenPort;
+            List<ListenerConfig> list_listeners = new List<ListenerConfig>();
+            list_listeners.Add(listener_config_ipV4);
+            list_listeners.Add(listener_config_ipV6);
+
+            ServerConfig server_config = new ServerConfig();          
             server_config.Mode = SocketMode.Tcp;
             server_config.MaxConnectionNumber = 10000;
             server_config.MaxRequestLength = 40962;
@@ -43,6 +51,7 @@ namespace GF.Server
             server_config.LogBasicSessionActivity = true;
             server_config.KeepAliveInterval = 5;
             server_config.KeepAliveTime = 5;
+            server_config.Listeners = list_listeners;
 
             mServer = new SuperSocketServer(this);
 

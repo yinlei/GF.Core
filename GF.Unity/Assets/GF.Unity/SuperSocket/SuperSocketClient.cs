@@ -4,6 +4,7 @@ using System.IO;
 using System.Net;
 using SuperSocket.ProtoBase;
 using GF.Common;
+using System.Net.Sockets;
 
 enum eSocketEventType : byte
 {
@@ -46,6 +47,7 @@ public class SuperSocketClient : IPackageHandler<BufferedPackageInfo<ushort>>
     public OnSocketConnected OnSocketConnected { get; set; }
     public OnSocketClosed OnSocketClosed { get; set; }
     public OnSocketError OnSocketError { get; set; }
+    bool IsIpV6 { get; set; }
 
     //---------------------------------------------------------------------
     public SuperSocketClient()
@@ -53,6 +55,11 @@ public class SuperSocketClient : IPackageHandler<BufferedPackageInfo<ushort>>
         mPipelineProcessor = new DefaultPipelineProcessor<BufferedPackageInfo<ushort>>(
             this, new SuperSocketReceiveFilter(), 40960);
         mPipelineProcessor.NewReceiveBufferRequired += _newReceiveBufferRequired;
+        IsIpV6 = false;
+        if (Socket.OSSupportsIPv6 && !Socket.SupportsIPv4)
+        {
+            IsIpV6 = true;
+        }
     }
 
     //---------------------------------------------------------------------
@@ -68,13 +75,13 @@ public class SuperSocketClient : IPackageHandler<BufferedPackageInfo<ushort>>
     }
 
     //---------------------------------------------------------------------
-    public void connect(string ip, int port)
+    public void connect(string ipv4, string ipv6, int port)
     {
-        mIp = ip;
+        mIp = IsIpV6 ? ipv6 : ipv4;
         mPort = port;
 
         EndPoint server_address = new IPEndPoint(IPAddress.Parse(mIp), mPort);
-        mSession = new TcpClientSession3(server_address);
+        mSession = new TcpClientSession3(server_address, IsIpV6);
         mSession.DataReceived += _onReceive;
         mSession.Connected += _onConnected;
         mSession.Closed += _onClosed;
