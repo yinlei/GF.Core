@@ -49,6 +49,12 @@ public class EntityRpcSessionSuperSocketC : IRpcSession
     }
 
     //---------------------------------------------------------------------
+    public void connect(string server_host, int port)
+    {
+        if (mSocket != null) mSocket.connect(server_host, port);
+    }
+
+    //---------------------------------------------------------------------
     public void update(float elapsed_tm)
     {
         if (mSocket != null) mSocket.update(elapsed_tm);
