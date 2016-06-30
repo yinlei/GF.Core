@@ -35,8 +35,7 @@ class Program
         EsEngineSettings settings;
         settings.NodeType = 2;
         settings.NodeTypeString = "EsTest";
-        settings.ListenIpV4 = "127.0.0.1";
-        settings.ListenIpV6 = "";
+        settings.ListenIp = "127.0.0.1";
         settings.ListenPort = 5882;
         settings.RootEntityType = "EtNode";
         settings.EnableCoSupersocket = false;

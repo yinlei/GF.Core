@@ -10,8 +10,7 @@ namespace GF.Server
     {
         public byte NodeType;
         public string NodeTypeString;
-        public string ListenIpV4;
-        public string ListenIpV6;
+        public string ListenIp;
         public int ListenPort;
         public string RootEntityType;
         public bool EnableCoSupersocket;
