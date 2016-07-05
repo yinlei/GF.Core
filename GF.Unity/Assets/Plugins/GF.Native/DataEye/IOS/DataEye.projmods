@@ -1,0 +1,15 @@
+{
+  "group": "DataEye",
+  "libs": [ "libz.tbd" ],
+  "frameworks": [
+    "AdSupport.framework:optional",
+    "CoreTelephony.framework",
+    "Security.framework",
+    "SystemConfiguration.framework"
+  ],
+  "headerpaths": [ ],
+  "files": [ ],
+  "folders": [ ],
+  "excludes": [ "^.*.meta$", "^.*.mdown$", "^.*.pdf$" ],
+  "linker_flags": [ ]
+}
