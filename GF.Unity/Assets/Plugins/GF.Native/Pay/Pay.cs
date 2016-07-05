@@ -10,6 +10,7 @@ public class Pay
     static IPay mIPay;
     static Inventory mInventory = null;
     string mMsg = "";
+    const string OPENIAB_EVENT_RECEIVER = "OpenIABEventManager";
 
     //-------------------------------------------------------------------------
     public Pay()
@@ -41,6 +42,14 @@ public class Pay
         if (mPay == null)
         {
             mPay = new Pay();
+        }
+
+        GameObject openiab_msg_receiver = GameObject.Find(OPENIAB_EVENT_RECEIVER);
+        if (openiab_msg_receiver == null)
+        {
+            openiab_msg_receiver = new GameObject(OPENIAB_EVENT_RECEIVER);
+            openiab_msg_receiver.AddComponent<OpenIABEventManager>();
+            GameObject.DontDestroyOnLoad(openiab_msg_receiver);
         }
 
         return mPay;
