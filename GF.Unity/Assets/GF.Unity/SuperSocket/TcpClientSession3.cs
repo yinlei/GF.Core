@@ -38,7 +38,6 @@ public class TcpClientSession3 : IDisposable
     //-------------------------------------------------------------------------
     readonly int MAX_RECEIVE_LEN = 8192;
     Socket mSocket;
-    EndPoint mRemoteEndPoint;
     byte[] m_KeepAliveOptionValues;
     byte[] m_KeepAliveOptionOutValues;
     volatile bool mDisposed;
@@ -55,9 +54,8 @@ public class TcpClientSession3 : IDisposable
     public OnSocketError Error { get; set; }
 
     //-------------------------------------------------------------------------
-    public TcpClientSession3(EndPoint remote_endpoint, bool is_ipV6)
+    public TcpClientSession3(bool is_ipV6)
     {
-        mRemoteEndPoint = remote_endpoint;
         mIsIpV6 = is_ipV6;
 
         m_KeepAliveOptionValues = new byte[sizeof(uint) * 3];
@@ -168,7 +166,7 @@ public class TcpClientSession3 : IDisposable
     }
 
     //-------------------------------------------------------------------------
-    public void connect()
+    public void connect(EndPoint server_address)
     {
         try
         {
@@ -182,8 +180,32 @@ public class TcpClientSession3 : IDisposable
 
             mConnected = false;
 
-            var ip_endpoint = mRemoteEndPoint as IPEndPoint;
+            var ip_endpoint = server_address as IPEndPoint;
             mSocket.BeginConnect(ip_endpoint.Address, ip_endpoint.Port, new AsyncCallback(_onConnect), mSocket);
+        }
+        catch (Exception ex)
+        {
+            _raiseError(ex);
+            Dispose();
+        }
+    }
+
+    //-------------------------------------------------------------------------
+    public void connect(string server_host, int port)
+    {
+        try
+        {
+            if (mDisposed) return;
+
+            mSendLength = 0;
+            mSocket = new Socket(mIsIpV6 ? AddressFamily.InterNetworkV6 : AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+            mSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, true);
+            mSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.DontLinger, true);
+
+            mConnected = false;
+
+            mSocket.BeginConnect(server_host, port, new AsyncCallback(_onConnect), mSocket);
         }
         catch (Exception ex)
         {

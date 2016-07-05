@@ -34,8 +34,6 @@ public class SuperSocketClient : IPackageHandler<BufferedPackageInfo<ushort>>
     //---------------------------------------------------------------------
     static readonly ushort HeadLength = 2;
     TcpClientSession3 mSession;
-    string mIp;
-    int mPort;
     DefaultPipelineProcessor<BufferedPackageInfo<ushort>> mPipelineProcessor;
     Queue<SocketRecvData> mRecQueue = new Queue<SocketRecvData>();
     Queue<SocketEvent> mSocketEvent = new Queue<SocketEvent>();
@@ -55,11 +53,6 @@ public class SuperSocketClient : IPackageHandler<BufferedPackageInfo<ushort>>
         mPipelineProcessor = new DefaultPipelineProcessor<BufferedPackageInfo<ushort>>(
             this, new SuperSocketReceiveFilter(), 40960);
         mPipelineProcessor.NewReceiveBufferRequired += _newReceiveBufferRequired;
-        IsIpV6 = false;
-        if (Socket.OSSupportsIPv6 && !Socket.SupportsIPv4)
-        {
-            IsIpV6 = true;
-        }
     }
 
     //---------------------------------------------------------------------
@@ -77,17 +70,40 @@ public class SuperSocketClient : IPackageHandler<BufferedPackageInfo<ushort>>
     //---------------------------------------------------------------------
     public void connect(string ipv4, string ipv6, int port)
     {
-        mIp = IsIpV6 ? ipv6 : ipv4;
-        mPort = port;
+        string ip = IsIpV6 ? ipv6 : ipv4;
 
-        EndPoint server_address = new IPEndPoint(IPAddress.Parse(mIp), mPort);
-        mSession = new TcpClientSession3(server_address, IsIpV6);
+        EndPoint server_address = new IPEndPoint(IPAddress.Parse(ip), port);
+        mSession = new TcpClientSession3(IsIpV6);
         mSession.DataReceived += _onReceive;
         mSession.Connected += _onConnected;
         mSession.Closed += _onClosed;
         mSession.Error += _onError;
 
-        mSession.connect();
+        mSession.connect(server_address);
+    }
+
+    //---------------------------------------------------------------------
+    public void connect(string server_host, int port)
+    {
+        IsIpV6 = true;
+
+        IPAddress[] ipaddresss = Dns.GetHostAddresses(server_host);
+        foreach (var i in ipaddresss)
+        {
+            if (i.AddressFamily == AddressFamily.InterNetwork)
+            {
+                IsIpV6 = false;
+                break;
+            }
+        }
+
+        mSession = new TcpClientSession3(IsIpV6);
+        mSession.DataReceived += _onReceive;
+        mSession.Connected += _onConnected;
+        mSession.Closed += _onClosed;
+        mSession.Error += _onError;
+
+        mSession.connect(server_host, port);
     }
 
     //---------------------------------------------------------------------

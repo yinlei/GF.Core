@@ -28,16 +28,15 @@ namespace GF.Server
 
             var settings = EsEngine.Instance.Settings;
 
-            EbLog.Note("ListenIp=" + settings.ListenIpV4 + " ListenPort=" + settings.ListenPort);
+            EbLog.Note("ListenIp=" + settings.ListenIp + " ListenPort=" + settings.ListenPort);
 
-            ListenerConfig listener_config_ipV4 = new ListenerConfig();
-            listener_config_ipV4.Ip = settings.ListenIpV4;
-            listener_config_ipV4.Port = settings.ListenPort;
-            listener_config_ipV4.Security = "None";          
+            ListenerConfig listener_config_ip = new ListenerConfig();
+            listener_config_ip.Ip = settings.ListenIp;
+            listener_config_ip.Port = settings.ListenPort;
             List<ListenerConfig> list_listeners = new List<ListenerConfig>();
-            list_listeners.Add(listener_config_ipV4);
+            list_listeners.Add(listener_config_ip);
 
-            ServerConfig server_config = new ServerConfig();
+            ServerConfig server_config = new ServerConfig();          
             server_config.Mode = SocketMode.Tcp;
             server_config.MaxConnectionNumber = 10000;
             server_config.MaxRequestLength = 40962;
