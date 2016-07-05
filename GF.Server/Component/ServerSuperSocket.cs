@@ -33,14 +33,11 @@ namespace GF.Server
             ListenerConfig listener_config_ipV4 = new ListenerConfig();
             listener_config_ipV4.Ip = settings.ListenIpV4;
             listener_config_ipV4.Port = settings.ListenPort;
-            ListenerConfig listener_config_ipV6 = new ListenerConfig();
-            listener_config_ipV6.Ip = settings.ListenIpV6;
-            listener_config_ipV6.Port = settings.ListenPort;
+            listener_config_ipV4.Security = "None";          
             List<ListenerConfig> list_listeners = new List<ListenerConfig>();
             list_listeners.Add(listener_config_ipV4);
-            list_listeners.Add(listener_config_ipV6);
 
-            ServerConfig server_config = new ServerConfig();          
+            ServerConfig server_config = new ServerConfig();
             server_config.Mode = SocketMode.Tcp;
             server_config.MaxConnectionNumber = 10000;
             server_config.MaxRequestLength = 40962;
